@@ -26,14 +26,14 @@ const defaultTx: SendTransactionRequest = {
   messages: [
     {
       // The receiver's address.
-      address: "EQCKWpx7cNMpvmcN5ObM5lLUZHZRFKqYA4xmw9jOry0ZsF9M",
+      address: Address.parse("0QDbOQjuNTPFPXQ-FV3RXxeCVf-IU87b3wZneCnLbrfczGGz").toString({bounceable: false, testOnly: true}),
       // Amount to send in nanoTON. For example, 0.005 TON is 5000000 nanoTON.
       amount: "5000000",
       // (optional) State initialization in boc base64 format.
-      stateInit:
-        "te6cckEBBAEAOgACATQCAQAAART/APSkE/S88sgLAwBI0wHQ0wMBcbCRW+D6QDBwgBDIywVYzxYh+gLLagHPFsmAQPsAlxCarA==",
-      // (optional) Payload in boc base64 format.
-      payload: "te6ccsEBAQEADAAMABQAAAAASGVsbG8hCaTc/g==",
+      // stateInit:
+      //   "te6cckEBBAEAOgACATQCAQAAART/APSkE/S88sgLAwBI0wHQ0wMBcbCRW+D6QDBwgBDIywVYzxYh+gLLagHPFsmAQPsAlxCarA==",
+      // // (optional) Payload in boc base64 format.
+      // payload: "te6ccsEBAQEADAAMABQAAAAASGVsbG8hCaTc/g==",
     },
 
     // Uncomment the following message to send two messages in one transaction.
@@ -69,12 +69,12 @@ const waitForTransaction = async (
       const transactions = await client.getTransactions(walletAddress, {
 				limit: 1,
 			});
-      const lastTx = transactions[0];
-      if (!lastTx) {
+      if (!transactions || transactions.length === 0) {
         clearInterval(interval);
         resolve(null);
         return;
       }
+      const lastTx = transactions[0];
 
       if (lastTx && lastTx.inMessage) {
 					const inMsgHash = lastTx.inMessage.body.hash().toString('hex');

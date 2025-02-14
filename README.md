@@ -5,3 +5,6 @@ This repository demonstrates how to connect and transfer tokens in TON while wai
 
 - https://docs.ton.org/develop/dapps/ton-connect/
 - https://github.com/ton-connect/sdk/tree/main/packages/ui
+
+## Live demo
+You can check live demo in https://demotontransfer.netlify.app/
